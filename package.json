@@ -1,5 +1,5 @@
 {
-  "name": "facebook_api",
+  "name": "post-stats-api",
   "version": "1.0.0",
   "description": "App for download facebook data to csv",
   "author": "yuriSn",
