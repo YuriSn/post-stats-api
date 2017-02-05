@@ -1,4 +1,4 @@
-# post-stats-api
+# posts-stats-api
 
 > App for download facebook data to csv
 
