@@ -1,0 +1,73 @@
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 2rem;
+}
+
+h1[data-v-2e5ff22a] {
+  font-weight: 400;
+}
+pre[data-v-2e5ff22a] {
+  display: block;
+  margin: 0 auto;
+  text-align: left;
+  overflow: auto;
+  max-width: 40rem;
+  background-color: ghostwhite;
+  border: 1px solid silver;
+  padding: 10px 20px;
+}
+button[data-v-2e5ff22a] {
+  border: none;
+  background: #4c69ba;
+  background-image: linear-gradient(to bottom, #4c69ba, #3b55a0);
+  border-radius: 4px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+}
+button[data-v-2e5ff22a]:hover {
+  cursor: pointer;
+  background: #5b7bd5;
+  background-image: linear-gradient(to bottom, #5b7bd5, #4864b1);
+  text-decoration: none;
+}
+
+section[data-v-5927c01a] {
+  background: rgba(255, 255, 255, .5);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+#plug[data-v-5927c01a],
+#socket[data-v-5927c01a] {
+  fill:#4c69ba;
+}
+#loop-normal[data-v-5927c01a] {
+  fill: none;
+  stroke: #4c69ba;
+  stroke-width: 12;
+}
+#loop-offset[data-v-5927c01a] {
+  display: none;
+}
+svg[data-v-5927c01a] {
+  position: absolute;
+  width: 240px;
+  height: 120px;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; 
+  margin: auto;
+}
+
+/*# sourceMappingURL=app.c16ebcec4350f9d0a5aaf1977197cdbd.css.map*/
