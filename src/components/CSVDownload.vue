@@ -33,7 +33,7 @@
         };
 
         const endpoint = 'https://graph.facebook.com/v2.8/me/posts';
-        const params = 'fields=created_time,message,comments,likes,shares';
+        const params = 'fields=created_time,message,comments,likes,shares&limit=10000';
         const accesToken = `access_token=${FB.getAuthResponse().accessToken}`;// eslint-disable-line no-undef
         this.preload(true);
         fetch(`${endpoint}?${params}&${accesToken}`, myInit)
