@@ -1,7 +1,10 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><title>facebook_api</title><link href=/posts-stats-api/static/css/app.c16ebcec4350f9d0a5aaf1977197cdbd.css rel=stylesheet></head><body><div class=fb-login-button scope=user_posts onlogin=checkLoginState(); data-max-rows=2 data-size=xlarge data-show-faces=false data-auto-logout-link=true></div><div id=status class=fb-login-status></div><div id=app-wrap style="display: none"><div id=app></div></div><script>// TODO: incapsulate this logic in Vue instance
+<!DOCTYPE html><html><head><meta charset=utf-8><title>facebook_api</title><link href=/posts-stats-api/static/css/app.e8f18747db6d7f389f520866eec42340.css rel=stylesheet></head><body><div class=fb-login-button scope=user_posts onlogin=checkLoginState(); data-max-rows=2 data-size=xlarge data-show-faces=false data-auto-logout-link=true></div><div id=status class=fb-login-status></div><div id=app-wrap style="display: none"><div id=app></div></div><script>// TODO: encapsulate this logic in Vue instance
       // This is called with the results from from FB.getLoginStatus().
       function statusChangeCallback(response) {
         if (response.status === 'connected') {
+          // TODO: remove this shit when FB SDK logic will encapsulated in Vue instance
+          // P.S. I'm really ashamed of it
+          this.__VUE_HOT_MAP__['data-v-2e5ff22a'].instances[0].postsData = null;
           document.getElementById("app-wrap").style.display = "block";
           testAPI();
         } else if (response.status === 'not_authorized') {
@@ -23,7 +26,7 @@
 
       window.fbAsyncInit = function() {
       FB.init({
-        appId      : '1405069812856890',
+        appId      : '1405264426170762',
         cookie     : true,  // enable cookies to allow the server to access 
                             // the session
         xfbml      : true,  // parse social plugins on this page
@@ -59,4 +62,4 @@
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         margin-top: 2rem;
         text-align: center;
-      }</style><script type=text/javascript src=/posts-stats-api/static/js/manifest.4856f2d805cd40536798.js></script><script type=text/javascript src=/posts-stats-api/static/js/vendor.4ad8b0bffc3c7bdbd63a.js></script><script type=text/javascript src=/posts-stats-api/static/js/app.aa038c5fbfb6fde9e39e.js></script></body></html>
+      }</style><script type=text/javascript src=/posts-stats-api/static/js/manifest.c0e56c1a1840cd36223f.js></script><script type=text/javascript src=/posts-stats-api/static/js/vendor.4ad8b0bffc3c7bdbd63a.js></script><script type=text/javascript src=/posts-stats-api/static/js/app.c396aecaa46475bff8c5.js></script></body></html>

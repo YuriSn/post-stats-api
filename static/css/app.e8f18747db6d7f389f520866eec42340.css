@@ -21,6 +21,20 @@ pre[data-v-2e5ff22a] {
   border: 1px solid silver;
   padding: 10px 20px;
 }
+h1.error-title[data-v-2e5ff22a] {
+  color: #cc0000;
+}
+pre.error-message[data-v-2e5ff22a] {
+  color: #fff;
+  display: block;
+  margin: 0 auto;
+  text-align: left;
+  overflow: auto;
+  max-width: 40rem;
+  background-color: #cc0000;
+  border: 1px solid silver;
+  padding: 10px 20px;
+}
 button[data-v-2e5ff22a] {
   border: none;
   background: #4c69ba;
@@ -70,4 +84,4 @@ svg[data-v-5927c01a] {
   margin: auto;
 }
 
-/*# sourceMappingURL=app.c16ebcec4350f9d0a5aaf1977197cdbd.css.map*/
+/*# sourceMappingURL=app.e8f18747db6d7f389f520866eec42340.css.map*/
