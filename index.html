@@ -2,11 +2,6 @@
       // This is called with the results from from FB.getLoginStatus().
       function statusChangeCallback(response) {
         if (response.status === 'connected') {
-          // TODO: remove this shit when FB SDK logic will encapsulated in Vue instance
-          // P.S. I'm really ashamed of it
-          if (this.__VUE_HOT_MAP__) {
-            this.__VUE_HOT_MAP__['data-v-2e5ff22a'].instances[0].postsData = null;
-          }
           document.getElementById("app-wrap").style.display = "block";
           testAPI();
         } else if (response.status === 'not_authorized') {
