@@ -1,8 +1,12 @@
 <template>
   <div class="csv-download">
-    <button v-if="!postsData" @click="onClick">Get Posts</button>
+    <button v-if="!postsData" @click="getPosts">Get Posts</button>
     <button v-if="postsData" @click="downloadCSV">Download as CSV</button>
     <button v-if="postsData" @click="clearData">Clear</button>
+    <section v-if="error">
+      <h1 class="error-title">Error:</h1>
+      <pre class="error-message">{{ error || "An unidentified error has occurred" }}</pre> 
+    </section>
     <section v-if="postsData">
       <h1>Posts Data:</h1>
       <pre>{{ postsData }}</pre> 
@@ -11,8 +15,8 @@
 </template>
 
 <script>
-
-  import { responseFormat, convertToCSV } from 'utils';
+  import json2csv from 'json2csv';
+  import { responseFormat } from 'utils';
 
   export default {
     name: 'CSVDownload',
@@ -20,10 +24,25 @@
     data() {
       return {
         postsData: null,
+        error: null,
       };
     },
+
     methods: {
-      onClick() {
+      batchRequest(nextPage) {
+        fetch(nextPage)
+          .then(response => response.json())
+          .then((data) => {
+            if (data.paging) {
+              this.postsData.push(...responseFormat(data));
+              this.batchRequest(data.paging.next);
+            } else {
+              this.preload(false);
+            }
+          });
+      },
+
+      getPosts() {
         const myHeaders = new Headers();
         const myInit = {
           method: 'GET',
@@ -33,14 +52,17 @@
         };
 
         const endpoint = 'https://graph.facebook.com/v2.8/me/posts';
-        const params = 'fields=created_time,message,comments,likes,shares&limit=10000';
-        const accesToken = `access_token=${FB.getAuthResponse().accessToken}`;// eslint-disable-line no-undef
+        const params = 'fields=created_time,message,comments.limit(1).summary(true),likes.limit(1).summary(true),shares&limit=100';
+        const accesToken = `access_token=${FB.getAuthResponse().accessToken}`; // eslint-disable-line no-undef
         this.preload(true);
+
         fetch(`${endpoint}?${params}&${accesToken}`, myInit)
           .then(response => response.json())
           .then((data) => {
-            this.postsData = responseFormat(data);
-            this.preload(false);
+            if (data.paging) {
+              this.postsData = responseFormat(data);
+              this.batchRequest(data.paging.next);
+            }
           });
       },
 
@@ -48,7 +70,7 @@
         const { postsData: data } = this;
         const filename = 'posts_list.csv';
         const link = document.createElement('a');
-        let csv = convertToCSV({ data });
+        let csv = json2csv({ data });
 
         if (csv == null) return;
 
@@ -68,7 +90,6 @@
   };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   h1 {
     font-weight: 400;
@@ -81,6 +102,22 @@
     overflow: auto;
     max-width: 40rem;
     background-color: ghostwhite;
+    border: 1px solid silver;
+    padding: 10px 20px;
+  }
+
+  h1.error-title {
+    color: #cc0000;
+  }
+
+  pre.error-message {
+    color: #fff;
+    display: block;
+    margin: 0 auto;
+    text-align: left;
+    overflow: auto;
+    max-width: 40rem;
+    background-color: #cc0000;
     border: 1px solid silver;
     padding: 10px 20px;
   }

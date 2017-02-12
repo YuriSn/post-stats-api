@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "deploy" : "npm run build&&gh-pages -d dist",
+    "deploy": "npm run build&&gh-pages -d dist",
     "build": "node build/build.js",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "e2e": "node test/e2e/runner.js",
@@ -15,6 +15,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "json2csv": "^3.7.3",
     "moment": "^2.17.1",
     "vue": "^2.1.10"
   },

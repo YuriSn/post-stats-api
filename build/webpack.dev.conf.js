@@ -26,6 +26,7 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
+      FBAppId: process.env.npm_package_config_fbAppId,
       filename: 'index.html',
       template: 'index.html',
       inject: true

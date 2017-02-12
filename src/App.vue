@@ -16,10 +16,12 @@
         showPreloader: false,
       };
     },
+
     components: {
       CSVDownload,
       Preloader,
     },
+
     methods: {
       preload(value) {
         this.showPreloader = value;
