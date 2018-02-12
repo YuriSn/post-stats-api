@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><meta charset=utf-8><title>facebook_api</title><link href=/posts-stats-api/static/css/app.e8f18747db6d7f389f520866eec42340.css rel=stylesheet></head><body><div class=fb-login-button scope=user_posts onlogin=checkLoginState(); data-max-rows=2 data-size=xlarge data-show-faces=false data-auto-logout-link=true></div><div id=status class=fb-login-status></div><div id=app-wrap style="display: none"><div id=app></div></div><script>// TODO: encapsulate this logic in Vue instance
+<!DOCTYPE html><html><head><meta charset=utf-8><title>facebook_api</title><link href=/posts-stats-api/static/css/app.e8f18747db6d7f389f520866eec42340.css rel=stylesheet></head><body><div class=fb-login-button scope="user_posts, user_friends, read_custom_friendlists" onlogin=checkLoginState(); data-max-rows=2 data-size=xlarge data-show-faces=false data-auto-logout-link=true></div><div id=status class=fb-login-status></div><div id=app-wrap style="display: none"><div id=app></div></div><script>// TODO: incapsulate this logic in Vue instance
       // This is called with the results from from FB.getLoginStatus().
       function statusChangeCallback(response) {
         if (response.status === 'connected') {
@@ -22,17 +22,16 @@
       }
 
       window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '1405069812856890',
-        cookie     : true,  // enable cookies to allow the server to access the session
-        xfbml      : true,  // parse social plugins on this page
-        version    : 'v2.8', // use graph api version 2.8
-      });
+        FB.init({
+          appId : '',
+          cookie : true,  // enable cookies to allow the server to access the session
+          xfbml: true,  // parse social plugins on this page
+          version : 'v2.8', // use graph api version 2.8
+        });
 
-      FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
-      });
-
+        FB.getLoginStatus(function(response) {
+          statusChangeCallback(response);
+        });
       };
 
       // Load the SDK asynchronously
@@ -58,4 +57,4 @@
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         margin-top: 2rem;
         text-align: center;
-      }</style><script type=text/javascript src=/posts-stats-api/static/js/manifest.9e66529b65929faee114.js></script><script type=text/javascript src=/posts-stats-api/static/js/vendor.bcb31695fe3514dd34ff.js></script><script type=text/javascript src=/posts-stats-api/static/js/app.8d9430e5b809afe11ec3.js></script></body></html>
+      }</style><script type=text/javascript src=/posts-stats-api/static/js/manifest.a98ad61793f11ac1f3d1.js></script><script type=text/javascript src=/posts-stats-api/static/js/vendor.a5279d4899b3fed45fa1.js></script><script type=text/javascript src=/posts-stats-api/static/js/app.fc4b0a387897c4b48fee.js></script></body></html>
