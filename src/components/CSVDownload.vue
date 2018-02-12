@@ -1,22 +1,28 @@
 <template>
   <div class="csv-download">
     <button v-if="!postsData" @click="getPosts">Get Posts</button>
-    <button v-if="postsData" @click="downloadCSV">Download as CSV</button>
-    <button v-if="postsData" @click="clearData">Clear</button>
+    <button v-if="!addressesData" @click="getAddresses">Get Addresses</button>
+    <button v-if="postsData" @click="downloadCSV(postsData)">Download as CSV</button>
+    <button v-if="addressesData" @click="downloadCSV(addressesData)">Download as CSV</button>
+    <button v-if="postsData || addressesData" @click="clearData">Clear</button>
     <section v-if="error">
       <h1 class="error-title">Error:</h1>
-      <pre class="error-message">{{ error || "An unidentified error has occurred" }}</pre> 
+      <pre class="error-message">{{ error || "An unidentified error has occurred" }}</pre>
     </section>
     <section v-if="postsData">
       <h1>Posts Data:</h1>
-      <pre>{{ postsData }}</pre> 
+      <pre>{{ postsData }}</pre>
+    </section>
+    <section v-if="addressesData">
+      <h1>Addresses Data:</h1>
+      <pre>{{ addressesData }}</pre>
     </section>
   </div>
 </template>
 
 <script>
   import json2csv from 'json2csv';
-  import { responseFormat } from 'utils';
+  import { postsResponseFormat, addressesResponseFormat } from 'utils';
 
   export default {
     name: 'CSVDownload',
@@ -24,17 +30,18 @@
     data() {
       return {
         postsData: null,
+        addressesData: null,
         error: null,
       };
     },
 
     methods: {
-      batchRequest(nextPage) {
+      batchRequest(nextPage, format) {
         fetch(nextPage)
           .then(response => response.json())
           .then((data) => {
             if (data.paging) {
-              this.postsData.push(...responseFormat(data));
+              this.addressesData.push(...format(data));
               this.batchRequest(data.paging.next);
             } else {
               this.preload(false);
@@ -60,15 +67,47 @@
           .then(response => response.json())
           .then((data) => {
             if (data.paging) {
-              this.postsData = responseFormat(data);
-              this.batchRequest(data.paging.next);
+              this.postsData = postsResponseFormat(data);
+              this.batchRequest(data.paging.next, postsResponseFormat);
             }
           });
+
+        this.clearData();
       },
 
-      downloadCSV() {
-        const { postsData: data } = this;
-        const filename = 'posts_list.csv';
+      getAddresses() {
+        const myHeaders = new Headers();
+        const myInit = {
+          method: 'GET',
+          headers: myHeaders,
+          mode: 'cors',
+          cache: 'default',
+        };
+
+        const endpoint = 'https://graph.facebook.com/v2.8/me/friends';
+        const params = 'fields=hometown,first_name,last_name&limit=100';
+        const accesToken = `access_token=${FB.getAuthResponse().accessToken}`; // eslint-disable-line no-undef
+        this.preload(true);
+
+        fetch(`${endpoint}?${params}&${accesToken}`, myInit)
+          .then(response => response.json())
+          .then((data) => {
+            if (data.paging) {
+              this.addressesData = addressesResponseFormat(data);
+              if (data.paging.next) {
+                this.batchRequest(data.paging.next, addressesResponseFormat);
+              }
+              this.preload(false);
+            } else {
+              this.preload(false);
+            }
+          });
+
+        this.clearData();
+      },
+
+      downloadCSV(data) {
+        const filename = 'list.csv';
         const link = document.createElement('a');
         let csv = json2csv({ data });
 
@@ -85,6 +124,7 @@
 
       clearData() {
         this.postsData = null;
+        this.addressesData = null;
       },
     },
   };

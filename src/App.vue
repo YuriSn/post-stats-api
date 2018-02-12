@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <CSVDownload :preload="preload"></CSVDownload>
-    <Preloader v-if="showPreloader">
+    <Preloader v-if="showPreloader"></Preloader>
   </div>
 </template>
 

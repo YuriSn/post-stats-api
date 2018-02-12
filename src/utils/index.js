@@ -1,9 +1,6 @@
-/* eslint-disable */
-const utils = {};
-
 import moment from 'moment';
 
-export const responseFormat = utils.formatMoney = ({ data: response }) => {
+export const postsResponseFormat = ({ data: response }) => {
   const result = response.reduce((posts, post) => {
     if ('message' in post) {
       const likes = 'likes' in post ? post.likes.summary.total_count : 0;
@@ -22,6 +19,22 @@ export const responseFormat = utils.formatMoney = ({ data: response }) => {
     }
 
     return posts;
+  }, []);
+
+  return result;
+};
+
+export const addressesResponseFormat = ({ data: response }) => {
+  const result = response.reduce((friends, friend) => {
+    if ('address' in friend) {
+      const { first_name, last_name } = friend;
+      return [...friends, {
+        first_name,
+        last_name,
+      }];
+    }
+
+    return friends;
   }, []);
 
   return result;
